@@ -1,8 +1,8 @@
 <?php
-$host = 'localhost'; 
-$dbname = 'dbname'; 
-$username = 'root'; 
-$password = ''; 
+$host = 'localhost';
+$dbname = 'ovlo_management_system';
+$username = 'root';
+$password = '';
 
 // Create connection
 $conn = mysqli_connect($host, $username, $password, $dbname);
@@ -11,4 +11,3 @@ $conn = mysqli_connect($host, $username, $password, $dbname);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
-?>

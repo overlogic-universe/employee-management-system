@@ -5,17 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link href="/features/auth/styles/style.css" rel="stylesheet" />
 </head>
-
-<style>
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
-    background-color: #061B44;
-
-  }
-</style>
 
 <body>
   <div class="SplashPage" style="width: 1280px; height: 832px; position: relative">
