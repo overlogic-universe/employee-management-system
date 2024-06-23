@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Dashboard</title>
+    <title>Overlogic</title>
     <link href="/features/employee/styles/style.css" rel="stylesheet" />
 </head>
 
@@ -21,7 +21,7 @@
         <div class="sidebar">
             <div class="welcome">
                 <h2>Welcome</h2>
-                <p>Elon Musk</p>
+                <p>Admin</p>
             </div>
             <ul class="menu">
                 <li><a href="/dashboard" class="active">Dashboard</a></li>
@@ -36,7 +36,7 @@
                     <img src="../../../assets/prof.png" class="icon"></img>
                     <div>
                         <h3>Total Employee</h3>
-                        <span>48</span>
+                        <span><?= count($employees) ?></span>
                     </div>
                 </div>
                 <div class="share-qr">
@@ -57,57 +57,31 @@
 
             <div class="employee-list">
                 <h2>Employees</h2>
-                <div class="search-bar">
+                <!-- <div class="search-bar">
                     <span class="icon">🔍</span>
                     <input type="text" placeholder="Search Here">
-                </div>
-
+                </div> -->
+                <br>
+                <hr>
+                <br>
                 <table>
                     <thead>
                         <tr>
                             <th>Employee Name</th>
-                            <th>Division</th>
-                            <th>Manager</th>
+                            <th>Email</th>
                             <th>Status</th>
                             <th>Permission</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><img src="../../../assets/profile.jpg" alt="Profile" class="profile-pic"> Afrizal Putra Pratama</td>
-                            <td>Ui/Ux Designer</td>
-                            <td>Gilang Sri N.</td>
-                            <td><span class="status on-boarding">On Boarding</span></td>
-                            <td><a href="/permission" class="permission">permission</a></td>
-                        </tr>
-                        <tr>
-                            <td><img src="../../../assets/profile.jpg" alt="Profile" class="profile-pic"> Afrizal Putra Pratama</td>
-                            <td>Ui/Ux Designer</td>
-                            <td>Gilang Sri N.</td>
-                            <td><span class="status off-boarding">Off Boarding</span></td>
-                            <td><a href="permission.php" class="permission">permission</a></td>
-                        </tr>
-                        <tr>
-                            <td><img src="../../../assets/profile.jpg" alt="Profile" class="profile-pic"> Afrizal Putra Pratama</td>
-                            <td>Ui/Ux Designer</td>
-                            <td>Gilang Sri N.</td>
-                            <td><span class="status on-boarding">On Boarding</span></td>
-                            <td><a href="permission.php" class="permission">permission</a></td>
-                        </tr>
-                        <tr>
-                            <td><img src="../../../assets/profile.jpg" alt="Profile" class="profile-pic"> Afrizal Putra Pratama</td>
-                            <td>Ui/Ux Designer</td>
-                            <td>Gilang Sri N.</td>
-                            <td><span class="status on-boarding">On Boarding</span></td>
-                            <td><a href="permission.php" class="permission">permission</a></td>
-                        </tr>
-                        <tr>
-                            <td><img src="../../../assets/profile.jpg" alt="Profile" class="profile-pic"> Afrizal Putra Pratama</td>
-                            <td>Ui/Ux Designer</td>
-                            <td>Gilang Sri N.</td>
-                            <td><span class="status on-boarding">On Boarding</span></td>
-                            <td><a href="permission.php" class="permission">permission</a></td>
-                        </tr>
+                        <?php foreach ($employees as $employee) : ?>
+                            <tr>
+                                <td><img src="../../../assets/prof.png" alt="Profile" class="profile-pic"> <?= htmlspecialchars($employee['employee_name']) ?></td>
+                                <td><?= htmlspecialchars($employee['email']) ?></td>
+                                <td><span class="status <?= htmlspecialchars(strtolower($employee['status'])) ?>"><?= htmlspecialchars($employee['status']) ?></span></td>
+                                <td><a href="/permission" class="permission">permission</a></td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>

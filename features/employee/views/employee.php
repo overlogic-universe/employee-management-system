@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Dashboard</title>
+    <title>Overlogic</title>
     <link href="/features/employee/styles/style.css" rel="stylesheet" />
 </head>
 
@@ -21,12 +21,12 @@
         <div class="sidebar">
             <div class="welcome">
                 <h2>Welcome</h2>
-                <p>Elon Musk</p>
+                <p>Admin</p>
             </div>
             <ul class="menu">
                 <li><a href="/dashboard">Dashboard</a></li>
                 <li><a href="/employee" class="active">Employee</a></li>
-                <li><a href="#">Log Out</a></li>
+                <li><a href="/logout">Log Out</a></li>
             </ul>
         </div>
 
@@ -45,44 +45,20 @@
                     <thead>
                         <tr>
                             <th class="emp">Employee Name</th>
-                            <th class="dv">Division</th>
-
+                            <th class="dv">Email</th>
                             <th class="ac">Action</th>
-
-
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><img src="../../../assets/profile.jpg" alt="Profile" class="profile-pic"> Afrizal Putra Pratama</td>
-                            <td>Ui/Ux Designer</td>
-                            <td><a href="/edit-employee" class="update">Update</a></td>
-                            <td><button class="delete">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <td><img src="../../../assets/profile.jpg" alt="Profile" class="profile-pic"> Afrizal Putra Pratama</td>
-                            <td>Ui/Ux Designer</td>
-                            <td><a href="edit.php" class="update">Update</a></td>
-                            <td><button class="delete">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <td><img src="../../../assets/profile.jpg" alt="Profile" class="profile-pic"> Afrizal Putra Pratama</td>
-                            <td>Ui/Ux Designer</td>
-                            <td><a href="edit.php" class="update">Update</a></td>
-                            <td><button class="delete">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <td><img src="../../../assets/profile.jpg" alt="Profile" class="profile-pic"> Afrizal Putra Pratama</td>
-                            <td>Ui/Ux Designer</td>
-                            <td><a href="edit.php" class="update">Update</a></td>
-                            <td><button class="delete">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <td><img src="../../../assets/profile.jpg" alt="Profile" class="profile-pic"> Afrizal Putra Pratama</td>
-                            <td>Ui/Ux Designer</td>
-                            <td><a href="edit.php" class="update">Update</a></td>
-                            <td><button class="delete">Delete</button></td>
-                        </tr>
+                        <?php foreach ($employees as $employee) : ?>
+                            <tr>
+                                <td><img src="../../../assets/prof.png" alt="Profile" class="profile-pic"> <?= htmlspecialchars($employee['employee_name']) ?></td>
+                                <td><?= htmlspecialchars($employee['email']) ?></td>
+
+                                <td><a href="/edit-employee" class="update">Update</a></td>
+                                <td><button class="delete">Delete</button></td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>

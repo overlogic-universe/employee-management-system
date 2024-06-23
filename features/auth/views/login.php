@@ -4,21 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login</title>
+    <title>Overlogic</title>
     <link href="/features/auth/styles/style.css" rel="stylesheet" />
 </head>
 <script>
-        // menampilkan error dari session
-        window.onload = function() {
-            <?php
-            session_start();
-            if (isset($_SESSION['error'])) {
-                echo 'alert("' . addslashes($_SESSION['error']) . '");';
-                unset($_SESSION['error']); // hapus error message dari session
-            }
-            ?>
-        };
-    </script>
+    // menampilkan error dari session
+    window.onload = function() {
+        <?php
+        session_start();
+        if (isset($_SESSION['error'])) {
+            echo 'alert("' . addslashes($_SESSION['error']) . '");';
+            unset($_SESSION['error']); // hapus error message dari session
+        }
+        ?>
+    };
+</script>
+
 <body>
 
     <div class="Awalan">

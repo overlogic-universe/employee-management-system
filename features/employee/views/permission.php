@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Dashboard</title>
+    <title>Overlogic</title>
     <link href="/features/employee/styles/style.css" rel="stylesheet" />
 </head>
 
@@ -21,12 +21,12 @@
         <div class="sidebar">
             <div class="welcome">
                 <h2>Welcome</h2>
-                <p>Elon Musk</p>
+                <p>Admin</p>
             </div>
             <ul class="menu">
                 <li><a href="/dashboard">Dashboard</a></li>
                 <li><a href="/employee" class="active">Employee</a></li>
-                <li><a href="#">Log Out</a></li>
+                <li><a href="/logout">Log Out</a></li>
             </ul>
         </div>
 

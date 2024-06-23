@@ -56,7 +56,7 @@ class AuthController
                 header("Location: /dashboard");
                 exit();
             } else {
-                // Login gagal, set session jadi erro
+                // Login gagal, set session jadi error
                 session_start();
                 $_SESSION['error'] = "Invalid email or password";
                 header("Location: /login");
