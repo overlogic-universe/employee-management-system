@@ -24,4 +24,5 @@ Route::middleware('')->group(function () {
     Route::get('/scan', [EmployeeController::class, "scan"]);
     Route::post('/scan-process', [EmployeeController::class, "scanProcess"]);
     Route::post('/reset-status-process', [EmployeeController::class, "resetStatusProcess"]);
+    Route::post('/send-qr-code-process', [EmployeeController::class, "sendQRCodeEmailProcess"]);
 });

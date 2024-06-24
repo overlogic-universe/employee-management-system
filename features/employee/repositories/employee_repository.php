@@ -1,6 +1,7 @@
 <?php
 
 include_once "./core/config/connection.php";
+include_once "./core/helpers/qr_generator.php";
 include_once "./features/employee/models/employee_model.php";
 
 class EmployeeRepository
@@ -94,5 +95,14 @@ class EmployeeRepository
                 WHERE status = 'present'";
         $result = mysqli_query($conn, $sql);
         return $result;
+    }
+
+    public static function sendQRCodeEmail($recipientEmail, $employeeId, $divisionId)
+    {
+        // text to be generated into qr code
+        $qrText = "$employeeId-$recipientEmail-$divisionId";
+
+        // TODO: SEND EMAIL CODE
+
     }
 }

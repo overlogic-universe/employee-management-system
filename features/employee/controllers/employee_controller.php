@@ -132,4 +132,15 @@ class EmployeeController
             }
         }
     }
+
+    public static function sendQRCodeEmailProcess()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $employees = EmployeeRepository::fetchEmployees();
+            foreach ($employees as $employee) {
+                EmployeeRepository::sendQRCodeEmail($employee->getEmail(), $employee->getId(), $employee->getDivisionId());
+            }
+            header("Location: /dashboard");
+        }
+    }
 }

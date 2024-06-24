@@ -43,7 +43,9 @@
                     <img src="../../../assets/email.png" class="icon"></img>
                     <div>
                         <h3>Share QR code to Employee</h3>
-                        <button class="send-qr-btn">Send QR</button>
+                        <form action="/send-qr-code-process" method="POST">
+                            <button type="submit" class="send-qr-btn">Send QR</button>
+                        </form>
                     </div>
                 </div>
                 <div class="scan-qr">
@@ -64,18 +66,8 @@
                 </div>
                 <h3>
                     <?php
-
-                    function getFormattedDate()
-                    {
-                        $day = strftime('%A');
-                        $date = strftime('%d');
-                        $month = strftime('%B');
-                        $year = strftime('%Y');
-
-                        return "$day, $date $month $year";
-                    }
-
-                    echo getFormattedDate();
+                    include_once "./core/helpers/date_time_formatter.php";
+                    echo DateTimeFormatter::getDateTimeNow();
                     ?>
                 </h3>
                 <!-- <div class="search-bar">
