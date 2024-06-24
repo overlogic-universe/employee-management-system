@@ -138,9 +138,10 @@ class EmployeeController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $employees = EmployeeRepository::fetchEmployees();
             foreach ($employees as $employee) {
-                EmployeeRepository::sendQRCodeEmail($employee->getEmail(), $employee->getId(), $employee->getDivisionId());
+                EmployeeRepository::sendQRCodeEmail($employee->getEmail(), $employee->getId(), $employee->getDivisionId(), $employee->getName());
             }
             header("Location: /dashboard");
+            exit();
         }
     }
 }
