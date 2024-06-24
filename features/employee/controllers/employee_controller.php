@@ -2,28 +2,27 @@
 
 include_once "./core/render/view_rendered.php";
 include_once "./core/config/connection.php";
+include_once "./features/employee/models/employee_model.php";
+include_once "./features/employee/repositories/employee_repository.php";
+include_once "./features/employee/repositories/division_repository.php";
 
 class EmployeeController
 {
-
     public static function index()
     {
-        global $conn;
-        $employees = self::fetchEmployees($conn);
+        $employees = EmployeeRepository::fetchEmployees();
         return view("employee", "index", ['employees' => $employees]);
     }
 
     public static function employee()
     {
-        global $conn;
-        $employees = self::fetchEmployees($conn);
+        $employees = EmployeeRepository::fetchEmployees();
         return view("employee", "employee", ['employees' => $employees]);
     }
 
     public static function addEmployee()
     {
-        global $conn;
-        $divisions = self::fetchDivisions($conn);
+        $divisions = DivisionRepository::fetchDivisions();
         return view("employee", "add_employee", ['divisions' => $divisions]);
     }
 
@@ -36,16 +35,12 @@ class EmployeeController
             $email = $_POST['email'];
 
             if (!empty($employee_name) && !empty($division_id) && !empty($email)) {
-                $sql = "INSERT INTO employee (employee_name, division_id, email) VALUES ('$employee_name', '$division_id', '$email')";
-                $stmt = mysqli_prepare($conn, $sql);
-
-                if (mysqli_stmt_execute($stmt)) {
-                    echo "Employee added successfully.";
+                $employee = new Employee(null, $employee_name, $division_id, $email, null);
+                if (EmployeeRepository::insertEmployee($employee)) {
+                    header("Location: /employee");
                 } else {
-                    echo "Error: " . mysqli_error($conn);
+                    echo "Error: Unable to add employee.";
                 }
-
-                mysqli_stmt_close($stmt);
             } else {
                 echo "All fields are required.";
             }
@@ -54,37 +49,41 @@ class EmployeeController
         mysqli_close($conn);
     }
 
-    public static function editEmployee()
+    public static function editEmployee($id)
     {
-        return view("employee", "edit");
+        global $conn;
+        $employee = EmployeeRepository::fetchEmployeeById($id);
+        $divisions = DivisionRepository::fetchDivisions();
+        return view("employee", "edit", ['employee' => $employee, 'divisions' => $divisions]);
+    }
+
+    public static function editEmployeeProcess()
+    {
+        global $conn;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $employee_id = $_POST['employee_id'];
+            $employee_name = $_POST['employee_name'];
+            $division_id = $_POST['division_id'];
+            $email = $_POST['email'];
+            $status = $_POST['status']; // tambahkan pengambilan status
+
+            if (!empty($employee_name) && !empty($division_id) && !empty($email) && !empty($status)) {
+                $employee = new Employee($employee_id, $employee_name, $division_id, $email, $status);
+                if (EmployeeRepository::updateEmployee($employee)) {
+                    header("Location: /employee");
+                } else {
+                    echo "Error: Unable to update employee.";
+                }
+            } else {
+                echo "All fields are required.";
+            }
+        }
+
+        mysqli_close($conn);
     }
 
     public static function permission()
     {
         return view("employee", "permission");
-    }
-
-    public static function fetchEmployees($conn)
-    {
-        $sql = "SELECT * FROM employee";
-        $result = mysqli_query($conn, $sql);
-
-        if (mysqli_num_rows($result) > 0) {
-            return mysqli_fetch_all($result, MYSQLI_ASSOC);
-        } else {
-            return [];
-        }
-    }
-
-    public static function fetchDivisions($conn)
-    {
-        $sql = "SELECT * FROM division";
-        $result = mysqli_query($conn, $sql);
-
-        if (mysqli_num_rows($result) > 0) {
-            return mysqli_fetch_all($result, MYSQLI_ASSOC);
-        } else {
-            return [];
-        }
     }
 }

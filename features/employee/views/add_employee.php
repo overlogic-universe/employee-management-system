@@ -9,7 +9,7 @@
 
 <body>
     <nav class="navbar">
-        <img src="../../../assets/logo.png" alt="Logo" class="logo">
+        <a href="https://www.instagram.com/overlogic.id"> <img src="../../../assets/logo.png" alt="Logo" class="logo"></a>
         <div class="user-info">
             <img src="../../../assets/profile.jpg" alt="Profile" class="profile-pic">
             <span class="user-name">Reva Fidela</span>
@@ -46,7 +46,7 @@
                                 <select name="division_id">
                                     <?php
                                     foreach ($divisions as $division) {
-                                        echo "<option value=\"{$division['id']}\">{$division['division_name']}</option>";
+                                        echo "<option value=\"{$division->getId()}\">{$division->getName()}</option>";
                                     }
                                     ?>
                                 </select>

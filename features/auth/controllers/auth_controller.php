@@ -1,6 +1,7 @@
 <?php
 
 include_once "./core/render/view_rendered.php";
+include_once "./core/config/connection.php";
 
 class AuthController
 {
@@ -29,9 +30,9 @@ class AuthController
 
     public static function loginProcess()
     {
+        global $conn;
         // Memeriksa apakah form telah disubmit
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            include_once "./core/config/connection.php";
 
             $email = $_POST['email'];
             $password = $_POST['password'];

@@ -15,7 +15,8 @@ Route::get('/logout', [AuthController::class, "logout"]);
 Route::middleware('')->group(function () {
     Route::get('/dashboard', [EmployeeController::class, "index"]);
     Route::get('/employee', [EmployeeController::class, "employee"]);
-    Route::get('/edit-employee', [EmployeeController::class, "editEmployee"]);
+    Route::get('/edit-employee/{id}', [EmployeeController::class, "editEmployee"]);
+    Route::post('/edit-employee-process', [EmployeeController::class, "editEmployeeProcess"]);
     Route::get('/add-employee', [EmployeeController::class, "addEmployee"]);
     Route::post('/add-employee-process', [EmployeeController::class, "addEmployeeProcess"]);
     Route::get('/permission', [EmployeeController::class, "permission"]);

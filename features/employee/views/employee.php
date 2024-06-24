@@ -9,8 +9,8 @@
 </head>
 
 <body>
-    <nav class=" navbar">
-        <img src="../../../assets/logo.png" alt="Logo" class="logo">
+    <nav class="navbar">
+        <a href="https://www.instagram.com/overlogic.id"> <img src="../../../assets/logo.png" alt="Logo" class="logo"></a>
         <div class="user-info">
             <img src="../../../assets/profile.jpg" alt="Profile" class="profile-pic">
             <span class="user-name">Reva Fidela</span>
@@ -46,17 +46,23 @@
                         <tr>
                             <th class="emp">Employee Name</th>
                             <th class="dv">Email</th>
+                            <th class="ac"></th>
                             <th class="ac">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($employees as $employee) : ?>
                             <tr>
-                                <td><img src="../../../assets/prof.png" alt="Profile" class="profile-pic"> <?= htmlspecialchars($employee['employee_name']) ?></td>
-                                <td><?= htmlspecialchars($employee['email']) ?></td>
-
-                                <td><a href="/edit-employee" class="update">Update</a></td>
-                                <td><button class="delete">Delete</button></td>
+                                <td><?= htmlspecialchars($employee->getName()) ?></td>
+                                <td><?= htmlspecialchars($employee->getEmail()) ?></td>
+                                <td>
+                                <td><a href="/edit-employee/<?= $employee->getId() ?>" class="update">Update</a></td>
+                                <td>
+                                    <form action="/delete-employee" method="POST">
+                                        <button type="submit" class="delete">Delete</button>
+                                    </form>
+                                </td>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

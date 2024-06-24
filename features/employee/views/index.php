@@ -10,7 +10,7 @@
 
 <body>
     <nav class="navbar">
-        <img src="../../../assets/logo.png" alt="Logo" class="logo">
+        <a href="https://www.instagram.com/overlogic.id"> <img src="../../../assets/logo.png" alt="Logo" class="logo"></a>
         <div class="user-info">
             <img src="../../../assets/profile.jpg" alt="Profile" class="profile-pic">
             <span class="user-name">Reva Fidela</span>
@@ -76,9 +76,9 @@
                     <tbody>
                         <?php foreach ($employees as $employee) : ?>
                             <tr>
-                                <td><img src="../../../assets/prof.png" alt="Profile" class="profile-pic"> <?= htmlspecialchars($employee['employee_name']) ?></td>
-                                <td><?= htmlspecialchars($employee['email']) ?></td>
-                                <td><span class="status <?= htmlspecialchars(strtolower($employee['status'])) ?>"><?= htmlspecialchars($employee['status']) ?></span></td>
+                                <td><img src="../../../assets/prof.png" alt="Profile" class="profile-pic"> <?= htmlspecialchars($employee->getName()) ?></td>
+                                <td><?= htmlspecialchars($employee->getEmail()) ?></td>
+                                <td><span class="status <?= htmlspecialchars($employee->getStatus()) ?>"><?= htmlspecialchars($employee->getStatus()) ?></span></td>
                                 <td><a href="/permission" class="permission">permission</a></td>
                             </tr>
                         <?php endforeach; ?>
