@@ -13,7 +13,7 @@
         <a href="https://www.instagram.com/overlogic.id"> <img src="../../../assets/logo.png" alt="Logo" class="logo"></a>
         <div class="user-info">
             <img src="../../../assets/profile.jpg" alt="Profile" class="profile-pic">
-            <span class="user-name">Reva Fidela</span>
+            <span class="user-name">Admin</span>
         </div>
     </nav>
 
@@ -50,13 +50,18 @@
                     <img src="../../../assets/icon.png" class="icon"></img>
                     <div>
                         <h3>Scan QR Code Employee</h3>
-                        <button class="scan-qr-btn">Scan Now</button>
+                        <a href="/scan" class="scan-qr-btn">Scan Now</a>
                     </div>
                 </div>
             </div>
 
             <div class="employee-list">
-                <h2>Employees</h2>
+                <div style="display: flex; justify-content:space-between;">
+                    <h2>Employees</h2>
+                    <form action="/reset-status-process" method="POST">
+                        <button type="submit" style="cursor:pointer; color:white; background-color: red; border:none; border-radius: 20px; padding:10px 20px 10px 20px;">Reset</button>
+                    </form>
+                </div>
                 <!-- <div class="search-bar">
                     <span class="icon">🔍</span>
                     <input type="text" placeholder="Search Here">
@@ -77,7 +82,9 @@
                     <tbody>
                         <?php foreach ($employees as $employee) : ?>
                             <tr>
-                                <td><img src="../../../assets/prof.png" alt="Profile" class="profile-pic"> <?= htmlspecialchars($employee->getName()) ?></td>
+                                <td style="display: flex; align-items: center;"><img src="../../../assets/prof.png" alt="Profile" class="profile-pic">
+                                    <p><?= htmlspecialchars($employee->getName()) ?></p>
+                                </td>
                                 <td><?= htmlspecialchars($employee->getEmail()) ?></td>
                                 <td>
                                     <?php foreach ($divisions as $division) : ?>

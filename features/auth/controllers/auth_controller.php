@@ -2,6 +2,7 @@
 
 include_once "./core/render/view_rendered.php";
 include_once "./core/config/connection.php";
+include_once "./features/auth/repositories/auth_repository.php";
 
 class AuthController
 {
@@ -30,40 +31,16 @@ class AuthController
 
     public static function loginProcess()
     {
-        global $conn;
-        // Memeriksa apakah form telah disubmit
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $loginSuccessful = AuthRepository::isLoginValidated();
 
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-
-            // Lakukan sanitasi data (penting untuk keamanan)
-            $email = mysqli_real_escape_string($conn, $email);
-            $password = mysqli_real_escape_string($conn, $password);
-
-            // Hash the password before comparison if you are using hashed passwords
-            // $password = md5($password); // or password_hash($password, PASSWORD_BCRYPT)
-
-            // Query SQL untuk memeriksa apakah email dan password cocok
-            $sql = "SELECT * FROM admin WHERE email = '$email' AND password = '$password'";
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-                // Start session and store user information
-                session_start();
-                $_SESSION['email'] = $email;
-
-                // Login berhasil, redirect ke halaman dashboard atau halaman selanjutnya
-                header("Location: /dashboard");
-                exit();
-            } else {
-                // Login gagal, set session jadi error
-                session_start();
-                $_SESSION['error'] = "Invalid email or password";
-                header("Location: /login");
-            }
+        if ($loginSuccessful) {
+            header("Location: /dashboard");
+            exit();
+        } else {
+            session_start();
+            $_SESSION['error'] = "Invalid email or password";
+            header("Location: /login");
         }
-        $conn->close();
     }
 
     public static function logout()

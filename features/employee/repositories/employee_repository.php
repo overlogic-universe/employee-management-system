@@ -77,4 +77,36 @@ class EmployeeRepository
         mysqli_stmt_close($stmt);
         return $result;
     }
+
+    public static function updateEmployeeStatusAndActivity($qrCode)
+    {
+        $qrParts = explode('-', $qrCode);
+
+        if (count($qrParts) === 3) {
+            $employee_id = $qrParts[0];
+            $email = $qrParts[1];
+            $division_id = $qrParts[2];
+
+            global $conn;
+            $sql = "UPDATE employee SET status = 'present', last_activity = NOW() WHERE employee_id = ? AND email = ? AND division_id = ?";
+            $stmt = mysqli_prepare($conn, $sql);
+            mysqli_stmt_bind_param($stmt, "isi", $employee_id, $email, $division_id);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function resetStatus()
+    {
+        global $conn;
+        $sql = "UPDATE employee 
+                SET status = 'absent' 
+                WHERE status = 'present'";
+        $result = mysqli_query($conn, $sql);
+        return $result;
+    }
 }

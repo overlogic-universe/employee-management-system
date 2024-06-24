@@ -101,4 +101,40 @@ class EmployeeController
     {
         return view("employee", "permission");
     }
+
+    public static function scan()
+    {
+        return view("employee", "scan");
+    }
+
+    public static function scanProcess()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = json_decode(file_get_contents('php://input'), true);
+            $qrCode = $data['qrCode'];
+
+            // Update status dan lastActivity
+            $updateResult = EmployeeRepository::updateEmployeeStatusAndActivity($qrCode);
+
+            if ($updateResult) {
+                echo json_encode(['valid' => true]);
+            } else {
+                echo json_encode(['valid' => false, 'error' => 'Failed to update employee status']);
+            }
+        }
+    }
+
+    public static function resetStatusProcess()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            if (EmployeeRepository::resetStatus()) {
+
+                header('Location: /dashboard'); // Redirect kembali ke halaman dashboard setelah proses reset
+                exit();
+            } else {
+                echo "Error: Unable to delete employee.";
+            }
+        }
+    }
 }

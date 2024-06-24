@@ -43,8 +43,8 @@ class Route
     {
         $URI = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 
-        // Memeriksa apakah metode HTTP dan URI cocok dengan path yang diberikan
-        if ($_SERVER['REQUEST_METHOD'] === $method && self::matchRoute($path, $URI)) {
+        // Memeriksa apakah URI saat ini cocok dengan path yang diberikan
+        if ($_SERVER['REQUEST_METHOD'] === $method && $URI === $path) {
             // Menggabungkan middleware dari grup dan rute saat ini
             $allMiddlewares = array_merge(self::$middlewareStack, $middlewares);
 
@@ -60,37 +60,8 @@ class Route
                 }
             }
 
-            // Ekstrak parameter dari URI
-            $params = self::extractParams($path, $URI);
-
-            // Eksekusi fungsi callback (aksi dari controller) dengan parameter yang diberikan
-            echo call_user_func_array($callback, $params);
+            // Eksekusi fungsi callback (aksi dari controller)
+            echo $callback();
         }
-    }
-
-    // Memeriksa apakah URI cocok dengan path rute yang diberikan (termasuk penanganan parameter)
-    private static function matchRoute(string $route, string $URI): bool
-    {
-        // Menggunakan ekspresi reguler untuk mencocokkan pola rute
-        $pattern = preg_replace('/\/{([a-zA-Z0-9_-]+)}/', '/([^/]+)', $route);
-        $pattern = str_replace('/', '\/', $pattern);
-        $pattern = "/^$pattern$/";
-
-        return preg_match($pattern, $URI);
-    }
-
-    // Ekstrak nilai parameter dari URI berdasarkan pola rute
-    private static function extractParams(string $route, string $URI): array
-    {
-        preg_match_all('/{([a-zA-Z0-9_-]+)}/', $route, $matches);
-        $paramNames = $matches[1];
-        $pattern = preg_replace('/\/{([a-zA-Z0-9_-]+)}/', '/([^/]+)', $route);
-        $pattern = str_replace('/', '\/', $pattern);
-        $pattern = "/^$pattern$/";
-
-        preg_match($pattern, $URI, $values);
-        array_shift($values); // Hapus nilai pertama karena itu adalah URI lengkap yang cocok
-
-        return array_combine($paramNames, $values);
     }
 }
