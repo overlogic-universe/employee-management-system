@@ -69,6 +69,7 @@
                         <tr>
                             <th>Employee Name</th>
                             <th>Email</th>
+                            <th>Division</th>
                             <th>Status</th>
                             <th>Permission</th>
                         </tr>
@@ -78,6 +79,13 @@
                             <tr>
                                 <td><img src="../../../assets/prof.png" alt="Profile" class="profile-pic"> <?= htmlspecialchars($employee->getName()) ?></td>
                                 <td><?= htmlspecialchars($employee->getEmail()) ?></td>
+                                <td>
+                                    <?php foreach ($divisions as $division) : ?>
+                                        <?php if ($employee->getDivisionId() == $division->getId()) : ?>
+                                            <?= htmlspecialchars($division->getName()) ?>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </td>
                                 <td><span class="status <?= htmlspecialchars($employee->getStatus()) ?>"><?= htmlspecialchars($employee->getStatus()) ?></span></td>
                                 <td><a href="/permission" class="permission">permission</a></td>
                             </tr>

@@ -19,5 +19,6 @@ Route::middleware('')->group(function () {
     Route::post('/edit-employee-process', [EmployeeController::class, "editEmployeeProcess"]);
     Route::get('/add-employee', [EmployeeController::class, "addEmployee"]);
     Route::post('/add-employee-process', [EmployeeController::class, "addEmployeeProcess"]);
+    Route::post('/delete-employee-process/{id}', [EmployeeController::class, "deleteEmployeeProcess"]);
     Route::get('/permission', [EmployeeController::class, "permission"]);
 });

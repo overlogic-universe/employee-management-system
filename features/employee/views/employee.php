@@ -36,17 +36,20 @@
                     <h2>Employees</h2>
                     <a href="/add-employee" class="AddEmployee">Add employee</a>
                 </div>
-                <div class="search-bar">
+                <!-- <div class="search-bar">
                     <span class="icon">🔍</span>
                     <input type="text" placeholder="Search Here">
-                </div>
+                </div> -->
+                <br>
+                <hr>
+                <br>
 
                 <table>
                     <thead>
                         <tr>
                             <th class="emp">Employee Name</th>
                             <th class="dv">Email</th>
-                            <th class="ac"></th>
+                            <th class="dv">Division</th>
                             <th class="ac">Action</th>
                         </tr>
                     </thead>
@@ -56,9 +59,16 @@
                                 <td><?= htmlspecialchars($employee->getName()) ?></td>
                                 <td><?= htmlspecialchars($employee->getEmail()) ?></td>
                                 <td>
-                                <td><a href="/edit-employee/<?= $employee->getId() ?>" class="update">Update</a></td>
-                                <td>
-                                    <form action="/delete-employee" method="POST">
+                                    <?php foreach ($divisions as $division) : ?>
+                                        <?php if ($employee->getDivisionId() == $division->getId()) : ?>
+                                            <?= htmlspecialchars($division->getName()) ?>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </td>
+
+                                <td style="display: flex; justify-content: space-between;">
+                                    <a href="/edit-employee/<?= $employee->getId() ?>" class="update">Update</a>
+                                    <form action="/delete-employee-process/<?= $employee->getId() ?>" method="POST">
                                         <button type="submit" class="delete">Delete</button>
                                     </form>
                                 </td>

@@ -57,9 +57,21 @@ class EmployeeRepository
     public static function updateEmployee($employee)
     {
         global $conn;
-        $sql = "UPDATE employee SET employee_name = ?, division_id = ?, email = ?, status = ? WHERE employee_id = ?";
+        $sql = "UPDATE employee SET employee_name = ?, division_id = ?, email = ? WHERE employee_id = ?";
         $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "sissi", $employee->getName(), $employee->getDivisionId(), $employee->getEmail(), $employee->getStatus(), $employee->getId());
+        mysqli_stmt_bind_param($stmt, "sisi", $employee->getName(), $employee->getDivisionId(), $employee->getEmail(), $employee->getId());
+
+        $result = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        return $result;
+    }
+
+    public static function deleteEmployee($id)
+    {
+        global $conn;
+        $sql = "DELETE FROM employee WHERE employee_id = ?";
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "i", $id);
 
         $result = mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);

@@ -15,7 +15,7 @@ class Employee
         $this->employee_name = $employee_name;
         $this->division_id = $division_id;
         $this->email = $email;
-        $this->status = $status; // Inisialisasi status
+        $this->status = $status;
     }
 
     // Getter untuk mendapatkan ID karyawan

@@ -11,13 +11,15 @@ class EmployeeController
     public static function index()
     {
         $employees = EmployeeRepository::fetchEmployees();
-        return view("employee", "index", ['employees' => $employees]);
+        $divisions = DivisionRepository::fetchDivisions();
+        return view("employee", "index", ['employees' => $employees, 'divisions' => $divisions]);
     }
 
     public static function employee()
     {
         $employees = EmployeeRepository::fetchEmployees();
-        return view("employee", "employee", ['employees' => $employees]);
+        $divisions = DivisionRepository::fetchDivisions();
+        return view("employee", "employee", ['employees' => $employees, 'divisions' => $divisions]);
     }
 
     public static function addEmployee()
@@ -65,10 +67,9 @@ class EmployeeController
             $employee_name = $_POST['employee_name'];
             $division_id = $_POST['division_id'];
             $email = $_POST['email'];
-            $status = $_POST['status']; // tambahkan pengambilan status
 
-            if (!empty($employee_name) && !empty($division_id) && !empty($email) && !empty($status)) {
-                $employee = new Employee($employee_id, $employee_name, $division_id, $email, $status);
+            if (!empty($employee_name) && !empty($division_id) && !empty($email)) {
+                $employee = new Employee($employee_id, $employee_name, $division_id, $email, null);
                 if (EmployeeRepository::updateEmployee($employee)) {
                     header("Location: /employee");
                 } else {
@@ -80,6 +81,20 @@ class EmployeeController
         }
 
         mysqli_close($conn);
+    }
+
+    public static function deleteEmployeeProcess($id)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            // Memanggil method static delete pada class EmployeeRepository
+            // yang berisi query untuk melakukan delete
+            if (EmployeeRepository::deleteEmployee($id)) {
+                header("Location: /employee"); // Redirect ke halaman employee saat sukses
+            } else {
+                echo "Error: Unable to delete employee.";
+            }
+        }
     }
 
     public static function permission()
