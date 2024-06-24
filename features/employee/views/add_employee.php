@@ -5,22 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Overlogic</title>
     <link href="/features/employee/styles/style.css" rel="stylesheet" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../../../assets/logog.png" type="image/x-icon">
 </head>
 
 <body>
-    <nav class="navbar">
+    <nav class="navbar" data-aos="fade-down">
         <a href="https://www.instagram.com/overlogic.id"> <img src="../../../assets/logo.png" alt="Logo" class="logo"></a>
         <div class="user-info">
-            <img src="../../../assets/profile.jpg" alt="Profile" class="profile-pic">
-            <span class="user-name">Reva Fidela</span>
+            <img src="../../../assets/profile.jpeg" alt="Profile" class="profile-pic">
+            <span class="user-name"><?=$_SESSION['email'] ?? 'Freya Admin'?></span>
         </div>
     </nav>
 
     <div class="container">
-        <div class="sidebar">
+        <div class="sidebar" data-aos="fade-right">
             <div class="welcome">
                 <h2>Welcome</h2>
-                <p>Admin</p>
+                <p><?=$_SESSION['email'] ?? 'Freya Admin'?></p>
             </div>
             <ul class="menu">
                 <li><a href="/dashboard">Dashboard</a></li>
@@ -29,11 +31,11 @@
             </ul>
         </div>
 
-        <div class="main">
+        <div class="main" data-aos="fade-left">
             <div class="employee-list">
                 <h2>Employees</h2>
-                <table>
-                    <form action="/add-employee-process" method="POST">
+                <form id="employeeForm" action="/add-employee-process" method="POST">
+                    <table>
                         <tr>
                             <td>Employee Name </td>
                             <td width="5%">:</td>
@@ -44,11 +46,9 @@
                             <td width="5%">:</td>
                             <td width="75%">
                                 <select name="division_id">
-                                    <?php
-                                    foreach ($divisions as $division) {
-                                        echo "<option value=\"{$division->getId()}\">{$division->getName()}</option>";
-                                    }
-                                    ?>
+                                    <?php foreach ($divisions as $division) {
+    echo "<option value=\"{$division->getId()}\">{$division->getName()}</option>";
+}?>
                                 </select>
                             </td>
                         </tr>
@@ -57,12 +57,35 @@
                             <td width="5%">:</td>
                             <td width="75%"><input type="text" name="email" size="10"></td>
                         </tr>
-                </table>
-                <input class="submit" type="submit" value="Masukkan" name="submit">
+                    </table>
+                    <input class="submit" type="submit" value="Masukkan" name="submit">
                 </form>
             </div>
         </div>
     </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        AOS.init();
+
+        document.getElementById('employeeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You're about to add a new employee!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, add employee!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit();
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
