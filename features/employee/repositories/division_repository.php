@@ -25,13 +25,10 @@ class DivisionRepository
     public static function fetchDivisionById($id)
     {
         global $conn;
-        $sql = "SELECT * FROM division WHERE division_id = ?";
-        $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "i", $id);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
+        $sql = "SELECT * FROM division WHERE division_id = $id";
+        $result = mysqli_query($conn, $sql);
+
         $row = mysqli_fetch_assoc($result);
-        mysqli_stmt_close($stmt);
 
         if ($row) {
             return new Division($row['division_id'], $row['division_name']);
@@ -39,5 +36,4 @@ class DivisionRepository
             return null;
         }
     }
-
 }

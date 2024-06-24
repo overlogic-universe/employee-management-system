@@ -61,12 +61,21 @@
         }
 
         function updateEmployeeActivity(qrCodeResult) {
+            // Membuat objek XMLHttpRequest untuk membuat permintaan HTTP ke server tanpa memuat ulang halaman.
             const xhr = new XMLHttpRequest();
+
+            // Mengatur permintaan HTTP POST ke URL endpoint /scan-process di server.
             xhr.open('POST', '/scan-process');
+
+            // Mengatur header Content-Type untuk permintaan JSON
             xhr.setRequestHeader('Content-Type', 'application/json');
+
+            // Menangani respon dari permintaan
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     const response = JSON.parse(xhr.responseText);
+
+                    // Memeriksa apakah QR Code valid berdasarkan respons dari server
                     if (response.valid) {
                         alert(`Successfully scan QR Code`);
                     } else {
@@ -76,6 +85,8 @@
                     console.error('Failed to validate QR Code');
                 }
             };
+
+            // Mengirim data JSON ke server dengan menggunakan nilai qrCodeResult sebagai payload
             xhr.send(JSON.stringify({
                 qrCode: qrCodeResult
             }));

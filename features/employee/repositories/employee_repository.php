@@ -26,13 +26,10 @@ class EmployeeRepository
     public static function fetchEmployeeById($id)
     {
         global $conn;
-        $sql = "SELECT * FROM employee WHERE employee_id = ?";
-        $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "i", $id);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
+        $sql = "SELECT * FROM employee WHERE employee_id = $id";
+
+        $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($result);
-        mysqli_stmt_close($stmt);
 
         if ($row) {
             $employee = new Employee($row['employee_id'], $row['employee_name'], $row['division_id'], $row['email'], $row['status']);
@@ -45,41 +42,33 @@ class EmployeeRepository
     public static function insertEmployee($employee)
     {
         global $conn;
-        $sql = "INSERT INTO employee (employee_name, division_id, email) VALUES (?, ?, ?)";
-        $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "sis", $employee->getName(), $employee->getDivisionId(), $employee->getEmail());
+        $sql = "INSERT INTO employee (employee_name, division_id, email) VALUES ('{$employee->getName()}', {$employee->getDivisionId()}, '{$employee->getEmail()}')";
+        $result = mysqli_query($conn, $sql);
 
-        $result = mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
         return $result;
     }
 
     public static function updateEmployee($employee)
     {
         global $conn;
-        $sql = "UPDATE employee SET employee_name = ?, division_id = ?, email = ? WHERE employee_id = ?";
-        $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "sisi", $employee->getName(), $employee->getDivisionId(), $employee->getEmail(), $employee->getId());
+        $sql = "UPDATE employee SET employee_name = '{$employee->getName()}', division_id = {$employee->getDivisionId()}, email = '{$employee->getEmail()}' WHERE employee_id = {$employee->getId()}";
+        $result = mysqli_query($conn, $sql);
 
-        $result = mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
         return $result;
     }
 
     public static function deleteEmployee($id)
     {
         global $conn;
-        $sql = "DELETE FROM employee WHERE employee_id = ?";
-        $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "i", $id);
+        $sql = "DELETE FROM employee WHERE employee_id = $id";
 
-        $result = mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
+        $result = mysqli_query($conn, $sql);
         return $result;
     }
 
     public static function updateEmployeeStatusAndActivity($qrCode)
     {
+        // format "employee_id-email-division_id"
         $qrParts = explode('-', $qrCode);
 
         if (count($qrParts) === 3) {
@@ -88,11 +77,8 @@ class EmployeeRepository
             $division_id = $qrParts[2];
 
             global $conn;
-            $sql = "UPDATE employee SET status = 'present', last_activity = NOW() WHERE employee_id = ? AND email = ? AND division_id = ?";
-            $stmt = mysqli_prepare($conn, $sql);
-            mysqli_stmt_bind_param($stmt, "isi", $employee_id, $email, $division_id);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
+            $sql = "UPDATE employee SET status = 'present', last_activity = NOW() WHERE employee_id = $employee_id AND email = '$email' AND division_id = $division_id";
+            mysqli_query($conn, $sql);
 
             return true;
         } else {

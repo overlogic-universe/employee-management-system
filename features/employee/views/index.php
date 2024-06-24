@@ -62,6 +62,22 @@
                         <button type="submit" style="cursor:pointer; color:white; background-color: red; border:none; border-radius: 20px; padding:10px 20px 10px 20px;">Reset</button>
                     </form>
                 </div>
+                <h3>
+                    <?php
+
+                    function getFormattedDate()
+                    {
+                        $day = strftime('%A');
+                        $date = strftime('%d');
+                        $month = strftime('%B');
+                        $year = strftime('%Y');
+
+                        return "$day, $date $month $year";
+                    }
+
+                    echo getFormattedDate();
+                    ?>
+                </h3>
                 <!-- <div class="search-bar">
                     <span class="icon">🔍</span>
                     <input type="text" placeholder="Search Here">
@@ -76,7 +92,7 @@
                             <th>Email</th>
                             <th>Division</th>
                             <th>Status</th>
-                            <th>Permission</th>
+                            <!-- <th>Permission</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -94,7 +110,7 @@
                                     <?php endforeach; ?>
                                 </td>
                                 <td><span class="status <?= htmlspecialchars($employee->getStatus()) ?>"><?= htmlspecialchars($employee->getStatus()) ?></span></td>
-                                <td><a href="/permission" class="permission">permission</a></td>
+                                <!-- <td><a href="/permission" class="permission">permission</a></td> -->
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

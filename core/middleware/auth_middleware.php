@@ -6,7 +6,7 @@ class AuthMiddleware
     {
         session_start();
         if (!isset($_SESSION['email'])) {
-            header('Location: /login'); // Redirect ke halaman login jika belum login
+            header('Location: /login');
             exit();
         }
         return true;

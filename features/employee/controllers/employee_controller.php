@@ -53,7 +53,6 @@ class EmployeeController
 
     public static function editEmployee($id)
     {
-        global $conn;
         $employee = EmployeeRepository::fetchEmployeeById($id);
         $divisions = DivisionRepository::fetchDivisions();
         return view("employee", "edit", ['employee' => $employee, 'divisions' => $divisions]);
@@ -87,10 +86,8 @@ class EmployeeController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            // Memanggil method static delete pada class EmployeeRepository
-            // yang berisi query untuk melakukan delete
             if (EmployeeRepository::deleteEmployee($id)) {
-                header("Location: /employee"); // Redirect ke halaman employee saat sukses
+                header("Location: /employee");
             } else {
                 echo "Error: Unable to delete employee.";
             }
@@ -111,9 +108,9 @@ class EmployeeController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = json_decode(file_get_contents('php://input'), true);
+
             $qrCode = $data['qrCode'];
 
-            // Update status dan lastActivity
             $updateResult = EmployeeRepository::updateEmployeeStatusAndActivity($qrCode);
 
             if ($updateResult) {
@@ -127,10 +124,8 @@ class EmployeeController
     public static function resetStatusProcess()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
             if (EmployeeRepository::resetStatus()) {
-
-                header('Location: /dashboard'); // Redirect kembali ke halaman dashboard setelah proses reset
+                header('Location: /dashboard');
                 exit();
             } else {
                 echo "Error: Unable to delete employee.";
