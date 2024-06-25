@@ -17,7 +17,7 @@
         <a href="https://www.instagram.com/overlogic.id"> <img src="../../../assets/logo.png" alt="Logo" class="logo"></a>
         <div class="user-info">
             <img src="../../../assets/profile.jpeg" alt="Profile" class="profile-pic">
-            <span class="user-name"><?=$_SESSION['email'] ?? 'Freya Admin'?></span>
+            <span class="user-name"><?= $_SESSION['email'] ?? 'Freya Admin' ?></span>
         </div>
     </nav>
 
@@ -25,7 +25,7 @@
         <div class="sidebar" data-aos="fade-right">
             <div class="welcome">
                 <h2>Welcome</h2>
-                <p><?=$_SESSION['email'] ?? 'Freya Admin'?></p>
+                <p><?= $_SESSION['email'] ?? 'Freya Admin' ?></p>
             </div>
             <ul class="menu">
                 <li><a href="/dashboard" class="active">Dashboard</a></li>
@@ -40,7 +40,7 @@
                     <img alt="" src="../../../assets/prof.png" class="icon"></img>
                     <div>
                         <h3>Total Employee</h3>
-                        <h1><?=count($employees)?></h1>
+                        <h1><?= count($employees) ?></h1>
                     </div>
                 </div>
                 <div class="share-qr" data-aos="fade-up" data-aos-delay="200">
@@ -70,9 +70,9 @@
                 </div>
                 <h3>
                     <?php
-include_once "./core/helpers/date_time_formatter.php";
-echo DateTimeFormatter::getDateTimeNow();
-?>
+                    include_once "./core/helpers/date_time_formatter.php";
+                    echo DateTimeFormatter::getDateTimeNow();
+                    ?>
                 </h3>
                 <br>
                 <hr>
@@ -87,22 +87,22 @@ echo DateTimeFormatter::getDateTimeNow();
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($employees as $employee): ?>
-                            <tr data-aos="fade-up" data-aos-delay="100">
+                        <?php foreach ($employees as $employee) : ?>
+                            <tr>
                                 <td style="display: flex; align-items: center;"><img src="../../../assets/prof.png" alt="Profile" class="profile-pic">
-                                    <p><?=htmlspecialchars($employee->getName())?></p>
+                                    <p><?= htmlspecialchars($employee->getName()) ?></p>
                                 </td>
-                                <td><?=htmlspecialchars($employee->getEmail())?></td>
+                                <td><?= htmlspecialchars($employee->getEmail()) ?></td>
                                 <td>
-                                    <?php foreach ($divisions as $division): ?>
-                                        <?php if ($employee->getDivisionId() == $division->getId()): ?>
-                                            <?=htmlspecialchars($division->getName())?>
-                                        <?php endif;?>
-                                    <?php endforeach;?>
+                                    <?php foreach ($divisions as $division) : ?>
+                                        <?php if ($employee->getDivisionId() == $division->getId()) : ?>
+                                            <?= htmlspecialchars($division->getName()) ?>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
                                 </td>
-                                <td><span class="status <?=htmlspecialchars($employee->getStatus())?>"><?=htmlspecialchars($employee->getStatus())?></span></td>
+                                <td><span class="status <?= htmlspecialchars($employee->getStatus()) ?>"><?= htmlspecialchars($employee->getStatus()) ?></span></td>
                             </tr>
-                        <?php endforeach;?>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>

@@ -4,17 +4,11 @@ class DateTimeFormatter
 {
     public static function getDateTimeNow()
     {
-        $dateTime = new DateTime();
-        $formatter = new IntlDateFormatter(
-            'id_ID',
-            IntlDateFormatter::FULL,
-            IntlDateFormatter::NONE,
-            'Asia/Jakarta',
-            IntlDateFormatter::GREGORIAN
-        );
+        $day = strftime('%A');
+        $date = strftime('%d');
+        $month = strftime('%B');
+        $year = strftime('%Y');
 
-        $formatter->setPattern('EEEE, d MMMM Y');
-
-        return $formatter->format($dateTime);
+        return "$day, $date $month $year";
     }
 }
