@@ -17,7 +17,7 @@
         <a href="https://www.instagram.com/overlogic.id"> <img src="../../../assets/logo.png" alt="Logo" class="logo"></a>
         <div class="user-info">
             <img src="../../../assets/profile.jpeg" alt="Profile" class="profile-pic">
-            <span class="user-name"><?=$_SESSION['email'] ?? 'Freya Admin'?></span>
+            <span class="user-name"><?= $_SESSION['email'] ?? 'Freya Admin' ?></span>
         </div>
     </nav>
 
@@ -25,7 +25,7 @@
         <div class="sidebar" data-aos="fade-right">
             <div class="welcome">
                 <h2>Welcome</h2>
-                <p><?=$_SESSION['email'] ?? 'Freya Admin'?></p>
+                <p><?= $_SESSION['email'] ?? 'Freya Admin' ?></p>
             </div>
             <ul class="menu">
                 <li><a href="/dashboard">Dashboard</a></li>
@@ -54,26 +54,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($employees as $employee): ?>
-                            <tr data-aos="fade-up" data-aos-delay="300">
-                                <td><?=htmlspecialchars($employee->getName())?></td>
-                                <td><?=htmlspecialchars($employee->getEmail())?></td>
+                        <?php foreach ($employees as $employee) : ?>
+                            <tr>
+                                <td><?= htmlspecialchars($employee->getName()) ?></td>
+                                <td><?= htmlspecialchars($employee->getEmail()) ?></td>
                                 <td>
-                                    <?php foreach ($divisions as $division): ?>
-                                        <?php if ($employee->getDivisionId() == $division->getId()): ?>
-                                            <?=htmlspecialchars($division->getName())?>
-                                        <?php endif;?>
-                                    <?php endforeach;?>
+                                    <?php foreach ($divisions as $division) : ?>
+                                        <?php if ($employee->getDivisionId() == $division->getId()) : ?>
+                                            <?= htmlspecialchars($division->getName()) ?>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
                                 </td>
 
                                 <td style="display: flex; justify-content: space-between;">
-                                    <a href="/edit-employee/<?=$employee->getId()?>" class="update">Update</a>
-                                    <form action="/delete-employee-process/<?=$employee->getId()?>" method="POST" onsubmit="confirmDelete(event, this)">
+                                    <a href="/edit-employee/<?= $employee->getId() ?>" class="update">Update</a>
+                                    <form action="/delete-employee-process/<?= $employee->getId() ?>" method="POST" onsubmit="confirmDelete(event, this)">
                                         <button type="submit" class="delete">Delete</button>
                                     </form>
                                 </td>
                             </tr>
-                        <?php endforeach;?>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>

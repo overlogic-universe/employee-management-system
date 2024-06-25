@@ -48,7 +48,7 @@
                             <td>
                                 <select name="division_id" required>
                                     <?php foreach ($divisions as $division): ?>
-                                        <?php $selected = $division->getId() == $division->getId() ? 'selected' : '';?>
+                                        <?php $selected = $employee->getDivisionId() == $division->getId() ? 'selected' : '';?>
                                         <option value="<?=htmlspecialchars($division->getId())?>" <?=$selected?>>
                                             <?=htmlspecialchars($division->getName())?>
                                         </option>

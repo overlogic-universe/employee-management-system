@@ -17,7 +17,7 @@
         <a href="https://www.instagram.com/overlogic.id"> <img src="../../../assets/logo.png" alt="Logo" class="logo"></a>
         <div class="user-info">
             <img src="../../../assets/profile.jpeg" alt="Profile" class="profile-pic">
-            <span class="user-name"><?= $_SESSION['email'] ?? 'Freya Admin' ?></span>
+            <span class="user-name"><?= $_SESSION['email'] ?? 'Flora Admin' ?></span>
         </div>
     </nav>
 
@@ -25,7 +25,7 @@
         <div class="sidebar" data-aos="fade-right">
             <div class="welcome">
                 <h2>Welcome</h2>
-                <p><?= $_SESSION['email'] ?? 'Freya Admin' ?></p>
+                <p><?= $_SESSION['email'] ?? 'Flora Admin' ?></p>
             </div>
             <ul class="menu">
                 <li><a href="/dashboard" class="active">Dashboard</a></li>

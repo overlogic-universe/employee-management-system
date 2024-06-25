@@ -9,7 +9,7 @@
 body {
   font-family: Arial, sans-serif;
   background-color: #cdd8e4;
-  background-image: url('../../../assets/bg_lp.png');
+  background-image: url("../../../assets/bg_lp.png");
 }
 
 /* Navbar */
@@ -64,7 +64,7 @@ body {
   margin-left: -20px;
   margin-top: -20px;
   margin-bottom: -50vh;
-  background-image: url('../../../assets/patternd.png');
+  background-image: url("../../../assets/patternd.png");
 }
 
 .sidebar p {
@@ -143,7 +143,7 @@ body {
   width: calc(33% - 10px);
   text-align: center;
   margin: 10px;
-  background-image: url('../../../assets/patternd.png');
+  background-image: url("../../../assets/patternd.png");
 }
 
 .dashboard .icon {
@@ -168,7 +168,7 @@ body {
   background-color: #f2f2f2;
   padding: 20px;
   border-radius: 5px;
-  background-image: url('../../../assets/patternd.png');
+  background-image: url("../../../assets/patternd.png");
 }
 
 .emp {
@@ -242,8 +242,8 @@ td .profile-pic {
   background-color: #83b4ff;
   color: #ffffff;
   position: absolute;
-  right: 85px;
-  top: 260.5px;
+  right: 70px;
+  top: 160.5px;
   text-decoration: none;
 }
 
