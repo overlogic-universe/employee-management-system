@@ -40,6 +40,7 @@ class AuthController
             session_start();
             $_SESSION['error'] = "Invalid email or password";
             header("Location: /login");
+            echo "<script>alert('Email or password is wrong')</script>";
         }
     }
 

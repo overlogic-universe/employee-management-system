@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Overlogic EMS</title>
-    <link href="/features/employee/styles/style.css" rel="stylesheet" />
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="/features/division/styles/style.css" rel="stylesheet" />
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="shortcut icon" href="../../../assets/logog.png" type="image/x-icon">
@@ -29,8 +29,8 @@
             </div>
             <ul class="menu">
                 <li><a href="/dashboard">Dashboard</a></li>
-                <li><a href="/employee" class="active">Employee</a></li>
-                <li><a href="/division">Division</a></li>
+                <li><a href="/employee">Employee</a></li>
+                <li><a href="/division" class="active">Division</a></li>
                 <li><a href="/logout" onclick="confirmLogout(event)">Log Out</a></li>
             </ul>
         </div>
@@ -38,8 +38,8 @@
         <div class="main" data-aos="fade-left">
             <div class="employee-list">
                 <div class="emp" data-aos="fade-up" data-aos-delay="100">
-                    <h2>Employees</h2>
-                    <a href="/add-employee" class="AddEmployee">Add employee</a>
+                    <h2>Divisions</h2>
+                    <a href="/add-division" class="AddDivision">Add division</a>
                 </div>
                 <br>
                 <hr>
@@ -49,31 +49,22 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Employee Name</th>
-                            <th>Email</th>
-                            <th>Division</th>
+                            <th>Division Name</th>
+
                             <th class="ac">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($employees as $employee) : ?>
+                        <?php foreach ($divisions as $division) : ?>
                             <tr>
                                 <td>
-                                    <strong style="margin-right: 10px;"><?= htmlspecialchars($employee->getId()) ?></strong>
+                                    <strong style="margin-right: 10px;"><?= htmlspecialchars($division->getId()) ?></strong>
                                 </td>
-                                <td><?= htmlspecialchars($employee->getName()) ?></td>
-                                <td><?= htmlspecialchars($employee->getEmail()) ?></td>
-                                <td>
-                                    <?php foreach ($divisions as $division) : ?>
-                                        <?php if ($employee->getDivisionId() == $division->getId()) : ?>
-                                            <?= htmlspecialchars($division->getName()) ?>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
-                                </td>
+                                <td><?= htmlspecialchars($division->getName()) ?></td>
 
                                 <td style="display: flex; justify-content: space-between;">
-                                    <a href="/edit-employee/<?= $employee->getId() ?>" class="update">Update</a>
-                                    <form action="/delete-employee-process/<?= $employee->getId() ?>" method="POST" onsubmit="confirmDelete(event, this)">
+                                    <a href="/edit-division/<?= $division->getId() ?>" class="update">Update</a>
+                                    <form action="/delete-division-process/<?= $division->getId() ?>" method="POST" onsubmit="confirmDelete(event, this)">
                                         <button type="submit" class="delete">Delete</button>
                                     </form>
                                 </td>

@@ -16,7 +16,7 @@
     <nav class="navbar" data-aos="fade-down">
         <a href="https://www.instagram.com/overlogic.id"> <img src="../../../assets/logo.png" alt="Logo" class="logo"></a>
         <div class="user-info">
-            <img src="../../../assets/profile.jpeg" alt="Profile" class="profile-pic">
+            <img src="../../../assets/logog.png" alt="Profile" class="profile-pic">
             <span class="user-name"><?= $_SESSION['email'] ?? 'Flora Admin' ?></span>
         </div>
     </nav>
@@ -30,7 +30,8 @@
             <ul class="menu">
                 <li><a href="/dashboard" class="active">Dashboard</a></li>
                 <li><a href="/employee">Employee</a></li>
-                <li><a href="/logout" id="logout">Log Out</a></li>
+                <li><a href="/division">Division</a></li>
+                <li><a href="/logout" onclick="confirmLogout(event)">Log Out</a></li>
             </ul>
         </div>
 
@@ -80,6 +81,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Employee Name</th>
                             <th>Email</th>
                             <th>Division</th>
@@ -89,7 +91,10 @@
                     <tbody>
                         <?php foreach ($employees as $employee) : ?>
                             <tr>
-                                <td style="display: flex; align-items: center;"><img src="../../../assets/prof.png" alt="Profile" class="profile-pic">
+                                <td>
+                                    <strong style="margin-right: 10px;"><?= htmlspecialchars($employee->getId()) ?></strong>
+                                </td>
+                                <td style="display: flex; align-items: center;">
                                     <p><?= htmlspecialchars($employee->getName()) ?></p>
                                 </td>
                                 <td><?= htmlspecialchars($employee->getEmail()) ?></td>

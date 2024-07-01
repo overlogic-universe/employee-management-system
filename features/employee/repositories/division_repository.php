@@ -36,4 +36,31 @@ class DivisionRepository
             return null;
         }
     }
+
+    public static function insertDivision($division)
+    {
+        global $conn;
+        $sql = "INSERT INTO division (division_name, division_id) VALUES ('{$division->getName()}', '{$division->getId()}')";
+        $result = mysqli_query($conn, $sql);
+
+        return $result;
+    }
+
+    public static function updateDivision($division)
+    {
+        global $conn;
+        $sql = "UPDATE division SET division_name = '{$division->getName()}' WHERE division_id = {$division->getId()}";
+        $result = mysqli_query($conn, $sql);
+
+        return $result;
+    }
+
+    public static function deleteDivision($id)
+    {
+        global $conn;
+        $sql = "DELETE FROM division WHERE division_id = $id";
+
+        $result = mysqli_query($conn, $sql);
+        return $result;
+    }
 }

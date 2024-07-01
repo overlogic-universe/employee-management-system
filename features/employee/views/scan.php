@@ -117,15 +117,7 @@
         }
 
         function showAlert(title, message, type) {
-            const alertEl = document.createElement('div');
-            alertEl.className = `alert alert-${type}`;
-            alertEl.setAttribute('data-aos', 'fade-down');
-            alertEl.setAttribute('data-aos-duration', '500');
-            alertEl.innerHTML = `
-                <h4>${title}</h4>
-                <p>${message}</p>
-            `;
-            document.body.appendChild(alertEl);
+            alert(`${title}: ${message}`)
 
             setTimeout(() => {
                 alertEl.remove();
